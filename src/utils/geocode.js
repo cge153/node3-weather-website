@@ -28,7 +28,9 @@ const getWeather = (longitude, latitude, callback) => {
         } else {
             const weather = {
                 description: body.current.weather_descriptions[0],
-                temperature: body.current.temperature
+                temperature: body.current.temperature,
+                icon: body.current.weather_icons[0],
+                feelslike: body.current.feelslike
             };
             callback(undefined, weather);
         }
