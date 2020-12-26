@@ -21,7 +21,7 @@ weatherForm.addEventListener('submit', (e) => {
             }
     
             messageOne.textContent = `Current weather for ${data.location}:`;
-            messageTwo.textContent = `${data.description}. It is currently ${data.temperature} degrees Celsius and it feels like ${data.feelslike} degrees Celsius.`;
+            messageTwo.textContent = `${data.description}. It is currently ${data.temperature} degrees Celsius and it feels like ${data.feelslike} degrees Celsius. The humidity is ${data.humidity}%.`;
             weatherImageOne.src = data.icon;
         });
     });

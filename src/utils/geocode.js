@@ -30,7 +30,8 @@ const getWeather = (longitude, latitude, callback) => {
                 description: body.current.weather_descriptions[0],
                 temperature: body.current.temperature,
                 icon: body.current.weather_icons[0],
-                feelslike: body.current.feelslike
+                feelslike: body.current.feelslike,
+                humidity: body.current.humidity
             };
             callback(undefined, weather);
         }
