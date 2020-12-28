@@ -1,7 +1,7 @@
 const request = require('request');
 
-const getCoordinates = (location, callback) => {
-    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(location)}.json?access_token=pk.eyJ1IjoibmV1bWFubmNocmlzdCIsImEiOiJja2lya3ZhdGMwY3FtMnNuNDl3Z3lqb3JkIn0.j98DRdhmJ6cDzB9HNCllhg&limit=1`;
+const getCoordinates = (token, location, callback) => {
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(location)}.json?access_token=${token}&limit=1`;
     request({ url, json: true }, (error, { body } = {}) => {
         if (error) {
             callback('Unable to connect to location service!', undefined);
@@ -18,8 +18,8 @@ const getCoordinates = (location, callback) => {
     });
 };
 
-const getWeather = (longitude, latitude, callback) => {
-    const url = `http://api.weatherstack.com/current?access_key=dffa7c3dd7e9aace39a4d4b904c0ca9c&query=${latitude},${longitude}`;
+const getWeather = (token, longitude, latitude, callback) => {
+    const url = `http://api.weatherstack.com/current?access_key=${token}&query=${latitude},${longitude}`;
     request({ url, json: true }, (error, { body } = {}) => {
         if (error) {
             callback('Unable to connect to weahter service!', undefined);

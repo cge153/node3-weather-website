@@ -3,8 +3,12 @@ const express = require('express');
 const hbs = require('hbs');
 const { getCoordinates, getWeather } = require('./utils/geocode');
 
+if (!process.env.NODE_ENV || process.env.NODE_ENV.toLowerCase() !== 'production') {
+    require('dotenv').config();
+}
+
 const app = express();
-const port = process.env.PORT || 3000;
+const { PORT, MAPBOX_TOKEN, WEATHERSTACK_TOKEN } = process.env;
 
 // Define paths for Express config.
 const publicDirectoryPath = path.join(__dirname, '../public');
@@ -51,12 +55,12 @@ app.get('/weather', (req, res) => {
         });
     }
 
-    getCoordinates(address, (error, { longitude, latitude, location } = {}) => {
+    getCoordinates(MAPBOX_TOKEN, address, (error, { longitude, latitude, location } = {}) => {
         if (error) {
             return res.send({ error });
         }
 
-        getWeather(longitude, latitude, (error, { description, temperature, icon, feelslike, humidity } = {}) => {
+        getWeather(WEATHERSTACK_TOKEN, longitude, latitude, (error, { description, temperature, icon, feelslike, humidity } = {}) => {
             if (error) {
                 return res.send({ error });
             }
@@ -91,6 +95,6 @@ app.get('*', (req, res) => {
     });
 });
 
-app.listen(port, () => {
-    console.log(`Server is up on port ${port}.`);
+app.listen(PORT, () => {
+    console.log(`Server is up on port ${PORT}.`);
 });
